@@ -1,0 +1,39 @@
+---
+config:
+  look: neo
+  layout: elk
+  theme: default
+---
+flowchart TB
+ subgraph Stakeholders["Stakeholders Negotiation"]
+        Stakeholder2["Agent Stakeholder 2"]
+        Stakeholder3["Agent Stakeholder 3"]
+        Stakeholder4["Agent Stakeholder 4"]
+        Stakeholder1["Agent Stakeholder 1"]
+  end
+    Stakeholder1 --- Stakeholder2 & Stakeholder3 & Stakeholder4
+    Stakeholder2 --- Stakeholder3 & Stakeholder4
+    Stakeholder3 --- Stakeholder4
+    Company_Context["Company Context"] --> Stakeholders
+    Stakeholders o-- Negotiation --o Software["Agent Software Engineer"]
+    Software -. Dump Information .-> Negotiation_Report(["Report"])
+    Negotiation_Report -. Load Information .-> Software
+    Software --> SIPAC["SIPAC"]
+    SIPAC -- Alternatives --> AHP["AHP"]
+    Stakeholders -- Criteria --> AHP
+    AHP -- Alternatives Priorization --> Developer(("Developer"))
+    SIPAC -- (Alt, State) --> Developer
+    SIPAC -- Business Model Canva --> Developer
+
+    Stakeholder2@{ shape: rounded}
+    Stakeholder3@{ shape: rounded}
+    Stakeholder4@{ shape: rounded}
+    Stakeholder1@{ shape: rounded}
+    Software@{ shape: rounded}
+    style Stakeholder2 stroke-width:4px,stroke-dasharray: 0
+    style Stakeholder3 stroke-width:4px,stroke-dasharray: 0
+    style Stakeholder4 stroke-width:4px,stroke-dasharray: 0
+    style Stakeholder1 stroke-width:4px,stroke-dasharray: 0
+    style Company_Context stroke-width:4px,stroke-dasharray: 5
+    style Stakeholders fill:transparent
+    style Software stroke-width:4px,stroke-dasharray: 0

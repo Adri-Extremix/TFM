@@ -1,0 +1,41 @@
+---
+config:
+  look: neo
+  theme: default
+---
+sequenceDiagram
+    participant Context@{ "type": "collections" } as Company Context
+    actor Stakeholders1 as Stakeholder Agents 
+    actor Engineer1 as Software Engineer Agent 
+    participant Logs@{ "type": "database" }
+    autonumber
+
+    destroy Context
+    Context -->> Stakeholders1: Getting Company Context
+    Stakeholders1 ->> Stakeholders1: Negotiation
+    destroy Stakeholders1
+    Stakeholders1 <<->> Engineer1: Gathering Information
+    Note over Stakeholders1,Engineer1 : Some questions in order<br> to know  about the company
+    destroy Engineer1
+    Engineer1 ->> Logs: Dumping Gathered Info 
+
+    create actor Engineer2 as Software Engineer Agent 
+    Logs -->> Engineer2: Getting Bussiness Context
+    create participant SIPAC
+    destroy Engineer2
+    Engineer2 ->> SIPAC: Fill in the Necessary Info
+    Note over Engineer2, SIPAC: The agent will use the context <br> and a guide to know how to do it.
+    create actor Stakeholders2 as Stakeholder Agents 
+    Logs -->> Stakeholders2: Getting Bussiness Context 
+    create participant AHP
+    destroy Stakeholders2
+    Stakeholders2 ->> AHP:  Fill in Criteria
+    SIPAC ->> AHP: Fill in Alternatives
+    create actor Developer
+    destroy SIPAC
+    SIPAC ->> Developer: (Altermative, State) and Business Model Canva
+    destroy AHP
+    AHP ->> Developer: Alternatives Priorization
+
+
+    
