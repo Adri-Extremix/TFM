@@ -562,46 +562,46 @@ def analysis_node(state: SipacState) -> dict:
         }
         analysis["activos_identificados"].append(activo_data)
 
-    # Calcular métricas
-    if importancia:
-        analysis["metricas"]["importancia_promedio"] = round(
-            sum(importancia) / len(importancia), 2
-        )
-        analysis["metricas"]["activos_criticos"] = sum(
-            1 for imp in importancia if imp >= 4
-        )
-        analysis["metricas"]["activos_alta_prioridad"] = sum(
-            1 for imp in importancia if imp == 5
-        )
+    # # Calcular métricas
+    # if importancia:
+    #     analysis["metricas"]["importancia_promedio"] = round(
+    #         sum(importancia) / len(importancia), 2
+    #     )
+    #     analysis["metricas"]["activos_criticos"] = sum(
+    #         1 for imp in importancia if imp >= 4
+    #     )
+    #     analysis["metricas"]["activos_alta_prioridad"] = sum(
+    #         1 for imp in importancia if imp == 5
+    #     )
 
-    # Distribución por tipo de capital intelectual
-    ci_distribution = {}
-    for ci in tipo_ci:
-        ci_distribution[ci] = ci_distribution.get(ci, 0) + 1
-    analysis["metricas"]["distribucion_capital_intelectual"] = ci_distribution
+    # # Distribución por tipo de capital intelectual
+    # ci_distribution = {}
+    # for ci in tipo_ci:
+    #     ci_distribution[ci] = ci_distribution.get(ci, 0) + 1
+    # analysis["metricas"]["distribucion_capital_intelectual"] = ci_distribution
 
-    # Distribución por categoría GIA
-    gia_distribution = {}
-    for gia_id in tipo_generico:
-        gia_name = GIA_CATALOG.get(gia_id, "Desconocido")
-        gia_distribution[gia_name] = gia_distribution.get(gia_name, 0) + 1
-    analysis["metricas"]["distribucion_gia"] = gia_distribution
+    # # Distribución por categoría GIA
+    # gia_distribution = {}
+    # for gia_id in tipo_generico:
+    #     gia_name = GIA_CATALOG.get(gia_id, "Desconocido")
+    #     gia_distribution[gia_name] = gia_distribution.get(gia_name, 0) + 1
+    # analysis["metricas"]["distribucion_gia"] = gia_distribution
 
-    # Generar recomendaciones
-    if analysis["metricas"].get("activos_criticos", 0) > len(tipo_generico) * 0.5:
-        analysis["recomendaciones"].append(
-            "Más del 50% de tus activos son críticos. Considera priorizar inversiones en protección y gestión de riesgos."
-        )
+    # # Generar recomendaciones
+    # if analysis["metricas"].get("activos_criticos", 0) > len(tipo_generico) * 0.5:
+    #     analysis["recomendaciones"].append(
+    #         "Más del 50% de tus activos son críticos. Considera priorizar inversiones en protección y gestión de riesgos."
+    #     )
 
-    if ci_distribution.get("capital tecnológico", 0) > len(tipo_ci) * 0.6:
-        analysis["recomendaciones"].append(
-            "Alta concentración en capital tecnológico. Evalúa balancear con capital humano y organizativo."
-        )
+    # if ci_distribution.get("capital tecnológico", 0) > len(tipo_ci) * 0.6:
+    #     analysis["recomendaciones"].append(
+    #         "Alta concentración en capital tecnológico. Evalúa balancear con capital humano y organizativo."
+    #     )
 
-    if len(state.get("requisitos_de_negocio", [])) > len(tipo_generico):
-        analysis["recomendaciones"].append(
-            "Tienes más requisitos que activos identificados. Considera si faltan activos intangibles por identificar."
-        )
+    # if len(state.get("requisitos_de_negocio", [])) > len(tipo_generico):
+    #     analysis["recomendaciones"].append(
+    #         "Tienes más requisitos que activos identificados. Considera si faltan activos intangibles por identificar."
+    #     )
 
     return {
         "analysis_results": analysis,
